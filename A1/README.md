@@ -1,0 +1,3 @@
+## Analysis: Counting Problem
+
+The problem statement makes the assumption that a tweet mentions "Trump" if and only if the word "Trump" (case-sensitive) is present in the tweet. This means that tweets containing "TRUMP" or "trump", where context clearly alludes to Donald Trump, are not counted. This also includes tweets that improperly capitalize "Trump" (e.g. "tRump" or "TrUmP" or "trump"), tweets with grammatical errors ("trumps"), and hashtags where "Trump" is surrounded by alphanumeric characters (e.g. "#Trump2016" or "#TrumpTrain"). It is likely that the number of tweets mentioning "Trump" is undercounted.
