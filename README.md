@@ -43,3 +43,29 @@ b.	It turns out that our approach isn’t counting tweets properly … meaning t
 
 </ul>
 </ul>
+
+## Homework 2
+### Description
+
+The goal of this assignment is for you to get more familiar with your Unix EC2 – both as a data science machine and as a server (as a data scientist, you’ll need it as both).
+
+<ul>
+1. Setting up a webserver
+
+<ul>
+a. Setup an EC2 instance to run an Apache webserver on port 8008.
+
+b. Your goal is to have it serving up the file comp370_hw2.txt at the www root.
+</ul>
+
+2. Setting up a database server
+<ul>
+a. Install the MariaDB database server on your EC2 instance.
+
+b. Configure the database to run on an external port.
+
+c. Create a database called “comp370_test”.
+
+d. Add a new user "comp370" to your database server with permission to access the database "comp370_test". Use the password "$ungl@ss3s" for the password for this user.
+</ul>
+</ul>
