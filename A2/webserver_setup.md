@@ -10,7 +10,8 @@ A file that contains the sequence of steps/commands required to setup a function
 3. Click on the Security Groups tab and select the one for your instance
 4. Click on Edit Inbound Rules
     i. Add a new inbound rule
-    ii. Select All TCP Rule
+    ii. Select Custom TCP Rule
+    iii. Set Port Range to 8008
     iii. Set Source to Anywhere
 5. Save rule
 

@@ -16,7 +16,7 @@ A file that provides the sequence of steps/commands required to setup a function
 1. Go to `Security Groups` and select the group corresponding to the DB instance
 2. Select `Inbound rules` and `Edit inbound rules`
 3. Add a new rule with the following settings:
-    i. Type: `Custom TP`
+    i. Type: `Custom TCP`
     ii. Protocol: `TCP`
     iii. Port Range: `6002`
     iv. Source: Security group corresponding to the EC2 instance
@@ -38,7 +38,7 @@ A file that provides the sequence of steps/commands required to setup a function
 
 ## Launching MariaDB 
 1. Run `sudo apt install mariadb-server`
-2. Run `mysql -h [endpoint] -u admin -p` and enter the password
+2. Run `mysql -h [endpoint] -P 6002 -u admin -p` and enter the password
     i. The `endpoint` is retrieved from the AWS Management Console
 
 ## Creating a Database
