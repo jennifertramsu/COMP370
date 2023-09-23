@@ -31,7 +31,9 @@ A file that contains the sequence of steps/commands required to setup a function
 1. Change to root user with `sudo su` command
 2. Edit the file `/etc/apache2/ports.conf`
 3. Change the line `Listen 80` to `Listen 8008` to indicate the server to listen to port 8008
-4. Test the server by opening the page in a browser with the instance and port 8008
+4. Edit the file `/etc/apache2/sites-enabled/000-default.conf`
+5. Change the line `<VirtualHost *:80>` to `<VirtualHost *:8008>`
+6. Test the server by opening the page in a browser with the instance and port 8008
 
 ## Displaying the Text File
 1. Change directory to `/var/www/html` and delete the default `index.html` file

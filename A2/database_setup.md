@@ -46,9 +46,39 @@ A file that provides the sequence of steps/commands required to setup a function
 
 ## Creating a User and Granting Privileges
 1. Run `CREATE USER 'comp370'@'%' IDENTIFIED BY '$ungl@ss3s';`
-2. Run `GRANT ALL PRIVILEGES  ON comp370_test.* TO 'comp370'@'localhost';`
+2. Run `GRANT ALL PRIVILEGES  ON comp370_test.* TO 'comp370'@'%';`
 3. Run `FLUSH PRIVILEGES;` to apply the changes
 
 ## DBeaver Connection
 ![Alt text](image.png)
 ![Alt text](image-1.png)
+
+----
+
+Alternatively, ...
+
+## Launching MariaDB 
+1. Run `sudo apt install mariadb-server`
+2. Run `sudo mysql_secure_installation`
+    i. Create a password for the root user
+    ii. Remove anonymous users
+    iii. Disallow root login remotely
+    iv. Remove test database and access to it
+    v. Reload privilege tables now
+
+## Modifying the Port Number
+1. Check the status of MariaDB using `sudo service mariadb status`
+2. Navigate to `/etc/mysql/mariadb.cnf` and change the port number to `6002`
+
+## Allow access
+1. Navigate to `/etc/mysql/mariadb.conf.d/50-server.cnf` and change the bind address to `0.0.0.0`
+2. Restart MariaDB using `sudo service mariadb restart`
+3. Test access to MariaDB by running `Mariadb -u root -p` and enter the password
+
+## Creating a Database
+1. In `mysql`, run `CREATE DATABASE [database name];`
+
+## Creating a User and Granting Privileges
+1. Run `CREATE USER 'comp370'@'%' IDENTIFIED BY '$ungl@ss3s';`
+2. Run `GRANT ALL PRIVILEGES  ON comp370_test.* TO 'comp370'@'%';`
+3. Run `FLUSH PRIVILEGES;` to apply the changes
