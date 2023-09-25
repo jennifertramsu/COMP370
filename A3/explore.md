@@ -84,10 +84,10 @@ done
 echo ${freqs[@]}
 
 # Constructing CSV file
-echo "pony_name", "total_line_count", "percent_all_lines" > pony_freq.csv
+echo "pony_name", "total_line_count", "percent_all_lines" > line_percentages.csv
 
 for i in {0..5}
 do
-    echo ${ponies[i]}, ${counts[i]}, ${freqs[i]} >> pony_freq.csv
+    echo ${ponies[i]}, ${counts[i]}, ${freqs[i]} >> line_percentages.csv
 done
 ```
