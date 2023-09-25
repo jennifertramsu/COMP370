@@ -69,3 +69,31 @@ c. Create a database called “comp370_test”.
 d. Add a new user "comp370" to your database server with permission to access the database "comp370_test". Use the password "$ungl@ss3s" for the password for this user.
 </ul>
 </ul>
+
+## Homework 3
+### Description
+
+The goal of this assignment is to use UNIX command line tools to do core data science work.
+
+<ul>
+1. Watch some My Little Pony episodes (totally optional)
+<ul>
+In this and the next homework, we’re going to be analyzing My Little Pony language.  As we’ve discussed, it’s always important to study your source material … particularly when it’s very entertaining cartoons!  So if you’re able, watch a couple episodes!
+</ul>
+2. Explore MLP Dataset Properties
+<ul>
+We’ll be using the dataset available (here)[https://www.kaggle.com/liury123/my-little-pony-transcript]
+
+For the purpose of this study, we’ll use only clean_dialog.csv and assume that the dataset is perfect.
+
+Using standard command line tools (e.g., head, more, grep) and csvtool (shown in the solution to HW1), explore the clean_dialog.csv. Use the command line tools to answer the following questions:
+-	How big is the dataset?
+-	What’s the structure of the data? (i.e., what are the field and what are values in them)
+-	How many episodes does it cover?
+-	During the exploration phase, find at least one aspect of the dataset that is unexpected – meaning that it seems like it could create issues for later analysis.
+</ul>
+3. Analyze Speaker Frequency
+<ul>
+Use the grep tool to determine how often each pony speaks.
+Now calculate the percent of lines that each pony has over the entire dataset (including all characters).
+</ul>
