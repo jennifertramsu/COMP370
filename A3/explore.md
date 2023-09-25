@@ -35,7 +35,7 @@ csvcut -c pony,dialog clean_dialog.csv > dialog.csv
 # Removing rows with NA
 grep -v NA$ dialog.csv > dialog.na_gone.csv
 ```
-Each row represents one line of dialog. I am approximating each row to represent a single spoken line, therefore, only the `Pony` column is needed. The `Pony` column was extracted and sorted by frequency. To simplify the analysis, I am also assuming counting dialog for which the pony 
+Each row represents one line of dialog. I am approximating each row to represent a single spoken line, therefore, only the `Pony` column is needed. A pony has a line of dialog everytime it is mentioned individually in the `Pony` column as well as when `Main cast` is mentioned. However, there are some exceptions to this rule. If a pony is mentioned in the `Pony` column and is also mentioned in the `dialog` column with the words `sans`, `except`, or `but`, then the line of dialog is not counted. To account for this, I summed the individual counts, all mentions of `Main cast`, and exceptions. This means that the exceptions were double counted, so they are removed twice to determine the true count.
 
 ```
 # Extracting pony column
