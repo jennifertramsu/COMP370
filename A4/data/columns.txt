@@ -1,1 +1,1 @@
-created date, closed date, agency, complaint type, incident zip, status, borough
+created date,closed date,agency,complaint type,incident zip,status,borough
