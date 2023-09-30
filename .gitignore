@@ -1,3 +1,4 @@
 *.pem
 *.pem:*
 *.png
+A4/data/*.csv
