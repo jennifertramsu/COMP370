@@ -13,5 +13,5 @@ cat $path/${file}_filtered.csv >> $path/${file}_filtered_columns.csv
 # Filtering for 2020
 csvgrep -c 1 -r "[01].\/[01]./2020" $path/${file}_filtered_columns.csv > $path/${file}_2020.csv
 
-# Remove data with no borough or missing data
+# Remove data with no borough or missing data (will remove all open and in progress cases)
 grep -ve Unspecified -ve ",," $path/${file}_2020.csv > $path/${file}_2020_filtered.csv

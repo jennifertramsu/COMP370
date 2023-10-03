@@ -1,15 +1,16 @@
 import argparse
 import pandas as pd
+from pathlib import Path
 from datetime import datetime
 
 # Creating ArgumentParser
 parser = argparse.ArgumentParser(
     prog="BoroughComplaints",
-    description="This program outputs the number of complaint types per borough for a given date range.")
+    description="This program outputs the number of complaint types per borough for a given date range. It also removes rows where the closed date is before the created date and calculated the response time in hours. This new dataframe is exported as a csv file.")
 
 parser.add_argument("-i", "--input")
-parser.add_argument("-s", "--start")
-parser.add_argument("-e", "--end")
+parser.add_argument("-s", "--start", default="01/01/2020")
+parser.add_argument("-e", "--end", default="12/31/2020")
 parser.add_argument("-o", "--output")
 
 args = parser.parse_args()
@@ -23,19 +24,21 @@ output = args.output
 if input == None:
     print("Please specify an input file.")
     exit(1)
-if start == None:
-    print("Please specify a start date.")
-    exit(1)
-if end == None:
-    print("Please specify an end date.")
-    exit(1)
 
-# Reading in data
-df = pd.read_csv(input).loc[:, ['created date', 'closed date', 'complaint type', 'borough']]
+# Reading in data, status is already closed for all rows due to pre-processing and trimming
+df = pd.read_csv(input).loc[:, ['created date', 'closed date', 'incident zip', 'complaint type', 'borough']]
 
 # Filtering out rows where closed date is before created date
-df.loc[:, ['created date', 'closed date']] = df.loc[:, ['created date', 'closed date']].apply(pd.to_datetime, format='%m/%d/%Y %I:%M:%S %p')
-df_timefiltered = df.loc[df['created date'] < df['closed date']]
+df['created date'] = pd.to_datetime(df['created date'], format='%m/%d/%Y %I:%M:%S %p')
+df['closed date'] = pd.to_datetime(df['closed date'], format='%m/%d/%Y %I:%M:%S %p')
+df_timefiltered = df[df['created date'] < df['closed date']]
+
+# Calculate create-to-closed time in hours
+timedelta = df_timefiltered['closed date'] - df_timefiltered['created date']
+df_timefiltered['create-to-closed time'] = timedelta.apply(lambda x: x.round(freq='H')) / pd.Timedelta('1 hour')
+
+# Export
+df_timefiltered.to_csv("../data/" + Path(input).stem + "_ordered.csv", index=False)
 
 # Filtering rows within given date range
 df_range = df_timefiltered.loc[(df_timefiltered['created date'] >= start) & (df_timefiltered['created date'] <= end)]
