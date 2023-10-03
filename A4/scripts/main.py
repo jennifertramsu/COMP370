@@ -25,8 +25,18 @@ def load_df():
     file = get_df_path('incident_avg.csv')
     df = pd.read_csv(file)
 
-    total = df.groupby(MONTH_COLUMN_NAME)[AVERAGE_RESPONSE_TIME_COLUMN_NAME].agg('mean')
+    total_df = df.groupby(MONTH_COLUMN_NAME)[AVERAGE_RESPONSE_TIME_COLUMN_NAME].agg('mean')
+    
+    total = {'month': [], 'avg_response_time': []}
 
+    for month in MONTHS:
+        if month not in total_df.index.values:
+            total['month'].append(month)
+            total['avg_response_time'].append(0)
+        else:
+            total['month'].append(month)
+            total['avg_response_time'].append(total_df[month])
+    
 def load_zipcodes():
     global zipcodes
 
@@ -58,7 +68,6 @@ def update_plot_1(event):
 
     zip = event.item
     data = grab_monthly_average(zip)
-    print(data)
 
     plot_dataset_1.data = data
 
@@ -79,16 +88,12 @@ def main():
     load_df()
     load_zipcodes()
 
-    print(total)
-
     # Figure
     p = figure(title="Average Response Time by Zipcode", x_range = MONTHS, x_axis_label="Month", y_axis_label="Average Response Time (Hours)")
-    total_month = total.index.values.tolist()
-    total_avg = total.values.tolist()
-    total_source = {'month': total_month, 'avg_response_time': total_avg}
-    #p.line(x='month', y='avg_response_time', source=total_source, line_width=2, legend_label='Total')
+    p.line(x='month', y='avg_response_time', source=total, line_width=2, legend_label='Total', color='blue')
     p.line(x='month', y='avg_response_time', source=plot_dataset_1, line_width=2, legend_label='Zipcode 1', color='red')
-    p.line(x='month', y='avg_response_time', source=plot_dataset_2, line_width=2, legend_label='Zipcode 2')
+    p.line(x='month', y='avg_response_time', source=plot_dataset_2, line_width=2, legend_label='Zipcode 2', color='green')
+    p.xaxis.major_label_orientation = "vertical"
 
     # Dropdown
     dropdown_1 = Dropdown(label="Zipcode 1", menu = zipcodes)
