@@ -1,0 +1,1 @@
+created date,closed date,complaint type,descriptor,location type,status
