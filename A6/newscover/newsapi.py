@@ -47,5 +47,13 @@ def fetch_latest_news(api_key, news_keywords, lookback_days=10):
 
     # Fetching news
     news = newsapi.get_everything(q=news_keywords_str, language="en", from_param=from_date, to=to_date)
+    news = news['articles']
 
-    return news['articles']
+    # Validate dates
+    for n in news:
+        date = n['publishedAt'].split('T')[0]
+        date = datetime.strptime(date, '%Y-%m-%d').date()
+        if date < datetime.now().date() - timedelta(days=lookback_days):
+            raise ValueError("News date is too old.")
+
+    return news

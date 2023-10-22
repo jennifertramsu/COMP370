@@ -1,7 +1,9 @@
 import unittest
+import unittest.mock as mock
 from newscover.newsapi import fetch_latest_news
 from parameterized import parameterized
 from datetime import datetime, timedelta
+from json import load
 
 class TestNewsAPI(unittest.TestCase):
 
@@ -14,11 +16,13 @@ class TestNewsAPI(unittest.TestCase):
             fetch_latest_news(api_key="", news_keywords=news_keywords, lookback_days=10)
         self.assertEqual(str(e.exception), error_message)
 
-    def test_lookback_days(self):
-        news = fetch_latest_news(api_key="5ddf953964854e318559ff90282266c0", news_keywords=["test"], lookback_days=20)
+    @mock.patch('newscover.newsapi.NewsApiClient')
+    def test_lookback_days(self, mock_api):
+        
+        with open("newscover/tests/test_lookback_days.json") as f:
+            mock_api.return_value.get_everything.return_value = load(f)
 
-        for n in news:
-            date = n['publishedAt'].split('T')[0]
-            date = datetime.strptime(date, '%Y-%m-%d').date()
-            with self.subTest(date=date):
-                self.assertGreaterEqual(date, datetime.now().date() - timedelta(days=20))
+        with self.assertRaises(ValueError) as e:
+            fetch_latest_news(api_key="", news_keywords=["test"])
+
+        self.assertEqual(str(e.exception), "News date is too old.")
