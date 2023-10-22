@@ -3,3 +3,6 @@
 *.png
 *.csv
 2023*
+__pycache__
+*.txt
+*.json
